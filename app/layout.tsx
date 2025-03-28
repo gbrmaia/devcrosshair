@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "DevCrosshair - Ferramenta de precisão para desenvolvedores web e QA",
@@ -107,7 +108,10 @@ export default function RootLayout({
           }
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Analytics />
+        {children}
+      </body>
     </html>
   );
 }
