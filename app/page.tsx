@@ -589,7 +589,7 @@ document.body.appendChild(script);
                           }}
                         >
                           <Image
-                            src="/QR.png"
+                            src="/qr.png"
                             alt="QR Code PIX para apoiar o projeto"
                             width={192}
                             height={192}
