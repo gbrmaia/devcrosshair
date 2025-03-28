@@ -52,14 +52,26 @@ document.body.appendChild(script);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(
+    typeof window !== "undefined" ? window.innerWidth / 2 : 0
+  );
+  const mouseY = useMotionValue(
+    typeof window !== "undefined" ? window.innerHeight / 2 : 0
+  );
 
   const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 });
   const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 });
 
-  const rotateX = useTransform(smoothY, [0, window.innerHeight], [2, -2]);
-  const rotateY = useTransform(smoothX, [0, window.innerWidth], [-2, 2]);
+  const rotateX = useTransform(
+    smoothY,
+    [0, typeof window !== "undefined" ? window.innerHeight : 1000],
+    [2, -2]
+  );
+  const rotateY = useTransform(
+    smoothX,
+    [0, typeof window !== "undefined" ? window.innerWidth : 1000],
+    [-2, 2]
+  );
 
   useEffect(() => {
     // Inicializar os valores no lado do cliente

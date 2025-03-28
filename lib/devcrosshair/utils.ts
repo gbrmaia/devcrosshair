@@ -20,7 +20,7 @@ const rgbToHex = (rgb) => {
       })
       .join("")
   );
-};`
+};`;
 }
 
 export function showNotification(): string {
@@ -47,7 +47,7 @@ const showNotification = (message, isError = false) => {
       document.body.removeChild(notification);
     }
   }, 2000);
-};`
+};`;
 }
 
 export function copyUsingExecCommand(): string {
@@ -73,16 +73,14 @@ const copyUsingExecCommand = (text) => {
     console.error("Erro ao copiar (método 2): ", err);
     showNotification("Erro ao copiar informações", true);
   }
-};`
+};`;
 }
 
-// Adicionar a função calculateDistance que estava faltando
 export function calculateDistance(): string {
   return `
 const calculateDistance = (point1, point2) => {
   const dx = point2.x - point1.x;
   const dy = point2.y - point1.y;
   return Math.sqrt(dx * dx + dy * dy);
-};`
+};`;
 }
-
