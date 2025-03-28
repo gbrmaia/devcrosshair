@@ -46,46 +46,6 @@ Projetada para ser **leve**, **não-intrusiva** e **fácil de usar**, o DevCross
 })();
 ```
 
-## ✨ Funcionalidades
-
-| `<h3>`🎯 Crosshair de Precisão`</h3>`
-`<p>`Linhas guias vertical e horizontal que seguem o cursor com precisão de pixel.`</p>`
-
-| `<h3>`📊 Coordenadas em Tempo Real`</h3>`
-`<p>`Exibição das coordenadas X e Y do cursor atualizadas instantaneamente.`</p>`
-
-| `<h3>`🔍 Inspeção de Elementos`</h3>`
-`<p>`Informações detalhadas sobre o elemento sob o cursor, incluindo tags, classes e estilos.`</p>`
-
-| `<h3>`🔤 Informações de Fonte`</h3>`
-`<p>`Detalhes sobre as propriedades de texto do elemento, como família, tamanho e peso da fonte.`</p>`
-
-| `<h3>`📏 Modo de Medição`</h3>`
-`<p>`Medir distâncias entre dois pontos na página com precisão de pixel.`</p>`
-
-| `<h3>`📐 Grade de Referência`</h3>`
-`<p>`Sobreposição de grade personalizável para alinhamento e verificação de layout.`</p>`
-
-| `<h3>`⌨️ Atalhos de Teclado`</h3>`
-`<p>`Controles rápidos para todas as funcionalidades, aumentando sua produtividade.`</p>`
-
-| `<h3>`📋 Copiar Informações`</h3>`
-`<p>`Copiar para a área de transferência com um clique para documentação rápida.`</p>`
-
-## ⌨️ Atalhos do Teclado
-
-| Tecla           | Função                                  |
-| --------------- | --------------------------------------- |
-| `H`             | Mostrar/ocultar coordenadas             |
-| `I`             | Mostrar/ocultar informações do elemento |
-| `F`             | Mostrar/ocultar informações de fonte    |
-| `M`             | Ativar/desativar modo de medição        |
-| `G`             | Mostrar/ocultar grade                   |
-| `C`             | Copiar coordenadas ou informações       |
-| `ESC`           | Cancelar medição ou desativar           |
-| `CTRL + Mouse`  | Mover apenas a linha horizontal         |
-| `SHIFT + Mouse` | Mover apenas a linha vertical           |
-
 ## 👥 Casos de Uso
 
 ### 💻 Desenvolvedores Frontend
@@ -125,10 +85,6 @@ Contribuições são sempre bem-vindas! Sinta-se à vontade para abrir issues ou
 
 Por funcionar através de injeção de script, o DevCrosshair pode não ser compatível com todas as páginas. Alguns sites implementam políticas de segurança (Content Security Policy - CSP) ou outras proteções que podem bloquear a execução de scripts externos. Nestes casos, a ferramenta pode não funcionar como esperado.
 
-## 📄 Licença
-
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
 ## 🙏 Apoie o Projeto
 
 Se você achou o DevCrosshair útil, considere apoiar o desenvolvimento através de:
@@ -136,4 +92,4 @@ Se você achou o DevCrosshair útil, considere apoiar o desenvolvimento através
 - ⭐ Dar uma estrela no GitHub
 - 🐛 Reportar bugs e sugerir melhorias
 - 🔄 Compartilhar com outros desenvolvedores
-- ☕ [Pagar um café](https://devcrosshair.vercel.app/support) para o desenvolvedor
+- ☕ [Pagar um café](https://devcrosshair.vercel.app) para o desenvolvedor
