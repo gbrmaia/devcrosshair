@@ -1,57 +1,59 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Code } from "@/components/ui/code"
-import { CopyIcon, Github, Linkedin, MousePointerClick, Crosshair } from "lucide-react"
-import { useEffect, useState, useRef } from "react"
-import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import {
+  CopyIcon,
+  Github,
+  Linkedin,
+  MousePointerClick,
+  Crosshair,
+} from "lucide-react";
+import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function Home() {
+  // Corrigindo o protocolo para HTTP quando estiver rodando localmente
+  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    : "http://localhost:3000";
+
   const loaderScript = `(function(){
-  const script = document.createElement('script');
-  script.src = 'https://${process.env.NEXT_PUBLIC_VERCEL_URL ? process.env.NEXT_PUBLIC_VERCEL_URL : "localhost:3000"}/api/devcrosshair';
-  document.body.appendChild(script);
-})();`
+const script = document.createElement('script');
+script.src = '${baseUrl}/api/devcrosshair';
+document.body.appendChild(script);
+})();`;
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(loaderScript)
-  }
+    navigator.clipboard.writeText(loaderScript);
+  };
 
-  // Referência para o elemento de cursor
-  const cursorRef = useRef<HTMLDivElement>(null)
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [showLines, setShowLines] = useState(false);
 
-  // Estado para controlar a posição do cursor personalizado
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-
-  // Estado para controlar a visibilidade das linhas de crosshair
-  const [showLines, setShowLines] = useState(false)
-
-  // Efeito para atualizar a posição do cursor personalizado
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
 
-    window.addEventListener("mousemove", handleMouseMove)
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-    }
-  }, [])
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
-  // Efeito para mostrar as linhas de crosshair após um tempo
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowLines(true)
-    }, 1000)
+      setShowLines(true);
+    }, 1000);
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800 text-white">
-      {/* Cursor personalizado */}
       <div
         ref={cursorRef}
         className="fixed pointer-events-none z-50 mix-blend-difference"
@@ -69,7 +71,6 @@ export default function Home() {
         />
       </div>
 
-      {/* Linhas de crosshair */}
       {showLines && (
         <>
           <motion.div
@@ -89,7 +90,6 @@ export default function Home() {
         </>
       )}
 
-      {/* Círculos decorativos */}
       <div className="absolute -top-20 -left-20 w-40 h-40 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 blur-3xl opacity-20" />
       <div className="absolute top-1/3 -right-20 w-60 h-60 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 blur-3xl opacity-20" />
       <div className="absolute bottom-20 left-20 w-40 h-40 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 blur-3xl opacity-20" />
@@ -107,7 +107,11 @@ export default function Home() {
           </h1>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.5 }}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
           <Card className="w-full max-w-3xl p-6 mb-8 bg-gray-800/50 border-gray-700 backdrop-blur-sm">
             <motion.h2
               className="text-2xl font-semibold mb-4 text-blue-300"
@@ -144,9 +148,9 @@ export default function Home() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.5 }}
             >
-              <Code className="p-4 bg-gray-900 text-gray-100 rounded-md overflow-x-auto border border-gray-700">
-                {loaderScript}
-              </Code>
+              <pre className="p-4 bg-gray-900 text-gray-100 rounded-md overflow-x-auto border border-gray-700">
+                <code>{loaderScript}</code>
+              </pre>
               <Button
                 variant="secondary"
                 size="sm"
@@ -166,17 +170,47 @@ export default function Home() {
           transition={{ delay: 0.6, duration: 0.5 }}
         >
           <Card className="w-full max-w-3xl p-6 bg-gray-800/50 border-gray-700 backdrop-blur-sm">
-            <h2 className="text-2xl font-semibold mb-4 text-blue-300">Atalhos do DevCrosshair</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-blue-300">
+              Atalhos do DevCrosshair
+            </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               {[
-                { key: "H", desc: "Mostrar/ocultar coordenadas", icon: <MousePointerClick size={16} /> },
-                { key: "I", desc: "Mostrar/ocultar informações do elemento", icon: <MousePointerClick size={16} /> },
-                { key: "F", desc: "Mostrar/ocultar informações de fonte", icon: <MousePointerClick size={16} /> },
-                { key: "M", desc: "Ativar/desativar modo de medição", icon: <MousePointerClick size={16} /> },
-                { key: "G", desc: "Mostrar/ocultar grade", icon: <MousePointerClick size={16} /> },
-                { key: "C", desc: "Copiar coordenadas ou informações", icon: <MousePointerClick size={16} /> },
-                { key: "ESC", desc: "Cancelar medição ou desativar", icon: <MousePointerClick size={16} /> },
+                {
+                  key: "H",
+                  desc: "Mostrar/ocultar coordenadas",
+                  icon: <MousePointerClick size={16} />,
+                },
+                {
+                  key: "I",
+                  desc: "Mostrar/ocultar informações do elemento",
+                  icon: <MousePointerClick size={16} />,
+                },
+                {
+                  key: "F",
+                  desc: "Mostrar/ocultar informações de fonte",
+                  icon: <MousePointerClick size={16} />,
+                },
+                {
+                  key: "M",
+                  desc: "Ativar/desativar modo de medição",
+                  icon: <MousePointerClick size={16} />,
+                },
+                {
+                  key: "G",
+                  desc: "Mostrar/ocultar grade",
+                  icon: <MousePointerClick size={16} />,
+                },
+                {
+                  key: "C",
+                  desc: "Copiar coordenadas ou informações",
+                  icon: <MousePointerClick size={16} />,
+                },
+                {
+                  key: "ESC",
+                  desc: "Cancelar medição ou desativar",
+                  icon: <MousePointerClick size={16} />,
+                },
               ].map((shortcut, index) => (
                 <motion.div
                   key={shortcut.key}
@@ -200,7 +234,10 @@ export default function Home() {
             </div>
 
             <div className="mt-6 text-sm text-gray-400 border-t border-gray-700 pt-4">
-              <p>Nota: As opções "Info" e "Fontes" não podem ser ativadas simultaneamente.</p>
+              <p>
+                Nota: As opções "Info" e "Fontes" não podem ser ativadas
+                simultaneamente.
+              </p>
             </div>
 
             <div className="flex justify-center mt-8 gap-4">
@@ -243,6 +280,5 @@ export default function Home() {
         </motion.div>
       </main>
     </div>
-  )
+  );
 }
-

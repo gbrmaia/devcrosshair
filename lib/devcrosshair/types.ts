@@ -1,5 +1,3 @@
-// Tipos para o DevCrosshair
-
 export interface Point {
   x: number
   y: number
