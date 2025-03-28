@@ -24,10 +24,6 @@
 
 Projetada para ser **leve**, **não-intrusiva** e **fácil de usar**, o DevCrosshair pode ser carregado em qualquer site através do console do navegador, proporcionando uma experiência de desenvolvimento e teste mais eficiente.
 
-<div align="center">
-  <img src="public/screenshot.png" alt="DevCrosshair Screenshot" width="80%">
-</div>
-
 ## 🚀 Instalação Rápida
 
 1. Copie o script de carregamento abaixo
