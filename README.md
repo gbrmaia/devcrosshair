@@ -4,7 +4,7 @@
 
 ## Sobre o Projeto
 
-DevCrosshair é uma ferramenta de precisão para desenvolvedores web que facilita a medição, inspeção e análise de elementos em páginas web. Projetada para ser leve, não-intrusiva e fácil de usar, o DevCrosshair pode ser carregado em qualquer site através do console do navegador.
+DevCrosshair é uma ferramenta de precisão para desenvolvedores web e profissionais de QA que facilita a medição, inspeção e análise de elementos em páginas web. Projetada para ser leve, não-intrusiva e fácil de usar, o DevCrosshair pode ser carregado em qualquer site através do console do navegador.
 
 ## Funcionalidades
 
@@ -17,6 +17,13 @@ DevCrosshair é uma ferramenta de precisão para desenvolvedores web que facilit
 - **Atalhos de Teclado**: Controles rápidos para todas as funcionalidades
 - **Copiar Informações**: Copiar para a área de transferência com um clique
 
+## Casos de Uso
+
+- **Desenvolvedores Frontend**: Verificar alinhamentos, espaçamentos e propriedades de elementos
+- **Designers UI/UX**: Medir distâncias e verificar consistência visual
+- **Profissionais de QA**: Testar interfaces com precisão e documentar problemas visuais
+- **Desenvolvedores Mobile**: Verificar responsividade e comportamento em diferentes tamanhos de tela
+
 ## Como Usar
 
 1. Copie o script de carregamento
@@ -24,10 +31,10 @@ DevCrosshair é uma ferramenta de precisão para desenvolvedores web que facilit
 3. Cole o script no console e pressione Enter
 4. O DevCrosshair será carregado automaticamente
 
-```javascript
-(function () {
-  const script = document.createElement("script");
-  script.src = "https://seu-dominio.vercel.app/api/devcrosshair";
-  document.body.appendChild(script);
+\`\`\`javascript
+(function(){
+const script = document.createElement('script');
+script.src = 'https://seu-dominio.vercel.app/api/devcrosshair';
+document.body.appendChild(script);
 })();
-```
+\`\`\`

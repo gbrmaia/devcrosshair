@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://devhair.vercel.app/sitemap.xml
+

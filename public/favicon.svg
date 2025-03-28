@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
 import {
   CopyIcon,
   Github,
@@ -17,114 +17,77 @@ import {
   Coffee,
   Heart,
   Code,
-} from "lucide-react";
-import { useEffect, useState, useRef } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useTransform,
-  useSpring,
-} from "framer-motion";
-import Image from "next/image";
+} from "lucide-react"
+import { useEffect, useState, useRef } from "react"
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion"
+import Image from "next/image"
 
 export default function Home() {
   const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
     ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-    : "http://localhost:3000";
+    : "http://localhost:3000"
 
   const loaderScript = `(function(){
 const script = document.createElement('script');
 script.src = '${baseUrl}/api/devcrosshair';
 document.body.appendChild(script);
-})();`;
+})();`
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(loaderScript);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    navigator.clipboard.writeText(loaderScript)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState("usage");
-  const [showSupport, setShowSupport] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [copied, setCopied] = useState(false)
+  const [activeTab, setActiveTab] = useState("usage")
+  const [showSupport, setShowSupport] = useState(false)
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null)
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
-  const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 });
-  const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 });
+  const smoothX = useSpring(mouseX, { damping: 50, stiffness: 400 })
+  const smoothY = useSpring(mouseY, { damping: 50, stiffness: 400 })
 
-  const rotateX = useTransform(smoothY, [0, window.innerHeight], [2, -2]);
-  const rotateY = useTransform(smoothX, [0, window.innerWidth], [-2, 2]);
-
-  useEffect(() => {
-    // Inicializar os valores no lado do cliente
-    if (typeof window !== "undefined") {
-      mouseX.set(window.innerWidth / 2);
-      mouseY.set(window.innerHeight / 2);
-    }
-  }, []);
+  const rotateX = useTransform(smoothY, [0, window.innerHeight], [2, -2])
+  const rotateY = useTransform(smoothX, [0, window.innerWidth], [-2, 2])
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
-
     const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      setMousePosition({ x: clientX, y: clientY });
+      const { clientX, clientY } = e
+      setMousePosition({ x: clientX, y: clientY })
 
-      mouseX.set(clientX);
-      mouseY.set(clientY);
-    };
+      mouseX.set(clientX)
+      mouseY.set(clientY)
+    }
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+    mouseX.set(window.innerWidth / 2)
+    mouseY.set(window.innerHeight / 2)
+
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [mouseX, mouseY])
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowSupport(true);
-    }, 15000);
+      setShowSupport(true)
+    }, 15000)
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer)
+  }, [])
 
   const shortcuts = [
-    {
-      key: "H",
-      desc: "Mostrar/ocultar coordenadas",
-      icon: <MousePointerClick size={16} />,
-    },
-    {
-      key: "I",
-      desc: "Mostrar/ocultar informações do elemento",
-      icon: <Info size={16} />,
-    },
-    {
-      key: "F",
-      desc: "Mostrar/ocultar informações de fonte",
-      icon: <Type size={16} />,
-    },
-    {
-      key: "M",
-      desc: "Ativar/desativar modo de medição",
-      icon: <Ruler size={16} />,
-    },
+    { key: "H", desc: "Mostrar/ocultar coordenadas", icon: <MousePointerClick size={16} /> },
+    { key: "I", desc: "Mostrar/ocultar informações do elemento", icon: <Info size={16} /> },
+    { key: "F", desc: "Mostrar/ocultar informações de fonte", icon: <Type size={16} /> },
+    { key: "M", desc: "Ativar/desativar modo de medição", icon: <Ruler size={16} /> },
     { key: "G", desc: "Mostrar/ocultar grade", icon: <Grid size={16} /> },
-    {
-      key: "C",
-      desc: "Copiar coordenadas ou informações",
-      icon: <Copy size={16} />,
-    },
-    {
-      key: "ESC",
-      desc: "Cancelar medição ou desativar",
-      icon: <X size={16} />,
-    },
-  ];
+    { key: "C", desc: "Copiar coordenadas ou informações", icon: <Copy size={16} /> },
+    { key: "ESC", desc: "Cancelar medição ou desativar", icon: <X size={16} /> },
+  ]
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#0a0a0a] text-white blueprint-grid">
@@ -193,8 +156,7 @@ document.body.appendChild(script);
                 Dev<span className="text-gray-400">Crosshair</span>
               </h1>
               <p className="text-gray-400 mt-1">
-                Ferramenta de precisão para desenvolvedores web e profissionais
-                de QA
+                Ferramenta de precisão para desenvolvedores web e profissionais de QA
               </p>
             </div>
           </motion.div>
@@ -212,18 +174,14 @@ document.body.appendChild(script);
                   <div className="w-3 h-3 rounded-full bg-yellow-500" />
                   <div className="w-3 h-3 rounded-full bg-green-500" />
                 </div>
-                <div className="text-sm font-mono text-gray-400">
-                  DevCrosshair
-                </div>
+                <div className="text-sm font-mono text-gray-400">DevCrosshair</div>
                 <div className="w-16"></div>
               </div>
 
               <div className="flex border-b border-white/10">
                 <button
                   className={`px-4 py-2 font-medium ${
-                    activeTab === "usage"
-                      ? "text-white border-b-2 border-white"
-                      : "text-gray-400"
+                    activeTab === "usage" ? "text-white border-b-2 border-white" : "text-gray-400"
                   }`}
                   onClick={() => setActiveTab("usage")}
                 >
@@ -231,9 +189,7 @@ document.body.appendChild(script);
                 </button>
                 <button
                   className={`px-4 py-2 font-medium ${
-                    activeTab === "shortcuts"
-                      ? "text-white border-b-2 border-white"
-                      : "text-gray-400"
+                    activeTab === "shortcuts" ? "text-white border-b-2 border-white" : "text-gray-400"
                   }`}
                   onClick={() => setActiveTab("shortcuts")}
                 >
@@ -241,9 +197,7 @@ document.body.appendChild(script);
                 </button>
                 <button
                   className={`px-4 py-2 font-medium ${
-                    activeTab === "code"
-                      ? "text-white border-b-2 border-white"
-                      : "text-gray-400"
+                    activeTab === "code" ? "text-white border-b-2 border-white" : "text-gray-400"
                   }`}
                   onClick={() => setActiveTab("code")}
                 >
@@ -252,9 +206,7 @@ document.body.appendChild(script);
                 </button>
                 <button
                   className={`px-4 py-2 font-medium flex items-center gap-1 ${
-                    activeTab === "support"
-                      ? "text-white border-b-2 border-white"
-                      : "text-gray-400"
+                    activeTab === "support" ? "text-white border-b-2 border-white" : "text-gray-400"
                   }`}
                   onClick={() => setActiveTab("support")}
                 >
@@ -269,11 +221,7 @@ document.body.appendChild(script);
                       duration: 0.5,
                     }}
                   >
-                    <Heart
-                      size={14}
-                      className="text-red-500 ml-1"
-                      fill="#ef4444"
-                    />
+                    <Heart size={14} className="text-red-500 ml-1" fill="#ef4444" />
                   </motion.div>
                 </button>
               </div>
@@ -288,13 +236,11 @@ document.body.appendChild(script);
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <h2 className="text-xl font-semibold mb-4 text-white">
-                        Instalação Rápida
-                      </h2>
+                      <h2 className="text-xl font-semibold mb-4 text-white">Instalação Rápida</h2>
 
                       <p className="mb-4 text-gray-300">
-                        Ideal para desenvolvedores web e profissionais de QA que
-                        precisam testar interfaces com precisão.
+                        Ideal para desenvolvedores web e profissionais de QA que precisam testar interfaces com
+                        precisão.
                       </p>
 
                       <ol className="list-decimal pl-5 space-y-3 mb-6 text-gray-300">
@@ -311,35 +257,6 @@ document.body.appendChild(script);
                           O DevCrosshair será carregado automaticamente
                         </li>
                       </ol>
-
-                      <div className="bg-amber-500/10 border border-amber-500/20 rounded-md p-4 mb-6">
-                        <div className="flex items-start gap-2">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="text-amber-500 mt-0.5"
-                          >
-                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                            <line x1="12" y1="9" x2="12" y2="13"></line>
-                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                          </svg>
-                          <div className="text-amber-200 text-sm">
-                            <strong className="font-medium">Observação:</strong>{" "}
-                            Por funcionar através de injeção de script, o
-                            DevCrosshair pode não ser compatível com todas as
-                            páginas. Alguns sites implementam políticas de
-                            segurança (CSP) ou outras proteções que podem
-                            bloquear scripts externos.
-                          </div>
-                        </div>
-                      </div>
 
                       <div className="relative">
                         <pre className="p-4 bg-black text-gray-300 rounded-md overflow-x-auto border border-white/10 font-mono text-sm">
@@ -360,11 +277,7 @@ document.body.appendChild(script);
                               <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
-                                transition={{
-                                  type: "spring",
-                                  stiffness: 500,
-                                  damping: 15,
-                                }}
+                                transition={{ type: "spring", stiffness: 500, damping: 15 }}
                               >
                                 ✓
                               </motion.div>
@@ -387,9 +300,7 @@ document.body.appendChild(script);
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <h2 className="text-xl font-semibold mb-4 text-white">
-                        Atalhos do Teclado
-                      </h2>
+                      <h2 className="text-xl font-semibold mb-4 text-white">Atalhos do Teclado</h2>
 
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         {shortcuts.map((shortcut, index) => (
@@ -408,32 +319,21 @@ document.body.appendChild(script);
                               <span className="font-mono text-sm bg-white/10 px-2 py-1 rounded text-white">
                                 {shortcut.key}
                               </span>
-                              <span className="ml-2 text-gray-300">
-                                {shortcut.desc}
-                              </span>
+                              <span className="ml-2 text-gray-300">{shortcut.desc}</span>
                             </div>
                           </motion.div>
                         ))}
                       </div>
 
                       <div className="mt-4 text-sm text-gray-400 border-t border-white/10 pt-4">
-                        <p>
-                          Nota: As opções "Info" e "Fontes" não podem ser
-                          ativadas simultaneamente.
-                        </p>
+                        <p>Nota: As opções "Info" e "Fontes" não podem ser ativadas simultaneamente.</p>
                         <p className="mt-2">
-                          Use{" "}
-                          <span className="font-mono bg-white/10 px-1 rounded">
-                            CTRL
-                          </span>{" "}
-                          + Mouse para mover apenas a linha horizontal.
+                          Use <span className="font-mono bg-white/10 px-1 rounded">CTRL</span> + Mouse para mover apenas
+                          a linha horizontal.
                         </p>
                         <p className="mt-1">
-                          Use{" "}
-                          <span className="font-mono bg-white/10 px-1 rounded">
-                            SHIFT
-                          </span>{" "}
-                          + Mouse para mover apenas a linha vertical.
+                          Use <span className="font-mono bg-white/10 px-1 rounded">SHIFT</span> + Mouse para mover
+                          apenas a linha vertical.
                         </p>
                       </div>
                     </motion.div>
@@ -445,23 +345,17 @@ document.body.appendChild(script);
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <h2 className="text-xl font-semibold mb-4 text-white">
-                        Código Aberto
-                      </h2>
+                      <h2 className="text-xl font-semibold mb-4 text-white">Código Aberto</h2>
 
                       <div className="space-y-4 text-gray-300">
                         <p>
-                          O DevCrosshair é um projeto de código aberto,
-                          desenvolvido para ajudar a comunidade de
-                          desenvolvedores web e profissionais de QA. Todo o
-                          código-fonte está disponível no GitHub sob a licença
-                          MIT.
+                          O DevCrosshair é um projeto de código aberto, desenvolvido para ajudar a comunidade de
+                          desenvolvedores web e profissionais de QA. Todo o código-fonte está disponível no GitHub sob a
+                          licença MIT.
                         </p>
 
                         <div className="bg-white/5 p-4 rounded-lg">
-                          <h3 className="text-lg font-medium text-white mb-2">
-                            Tecnologias Utilizadas
-                          </h3>
+                          <h3 className="text-lg font-medium text-white mb-2">Tecnologias Utilizadas</h3>
                           <ul className="list-disc pl-5 space-y-1">
                             <li>Next.js para o frontend e API routes</li>
                             <li>TypeScript para tipagem estática</li>
@@ -471,58 +365,38 @@ document.body.appendChild(script);
                         </div>
 
                         <div className="bg-white/5 p-4 rounded-lg">
-                          <h3 className="text-lg font-medium text-white mb-2">
-                            Estrutura do Projeto
-                          </h3>
+                          <h3 className="text-lg font-medium text-white mb-2">Estrutura do Projeto</h3>
                           <p className="mb-2">
-                            O projeto é organizado em módulos para facilitar a
-                            manutenção e extensão:
+                            O projeto é organizado em módulos para facilitar a manutenção e extensão:
                           </p>
                           <ul className="list-disc pl-5 space-y-1">
                             <li>
-                              <span className="text-amber-400">
-                                lib/devcrosshair/
-                              </span>
-                              : Contém todos os módulos do script
+                              <span className="text-amber-400">lib/devcrosshair/</span>: Contém todos os módulos do
+                              script
                             </li>
                             <li>
-                              <span className="text-amber-400">
-                                api/devcrosshair/
-                              </span>
-                              : Endpoint que serve o script
+                              <span className="text-amber-400">api/devcrosshair/</span>: Endpoint que serve o script
                             </li>
                             <li>
-                              <span className="text-amber-400">
-                                app/page.tsx
-                              </span>
-                              : Interface do site
+                              <span className="text-amber-400">app/page.tsx</span>: Interface do site
                             </li>
                           </ul>
                         </div>
 
                         <div className="bg-white/5 p-4 rounded-lg">
-                          <h3 className="text-lg font-medium text-white mb-2">
-                            Como Contribuir
-                          </h3>
-                          <p>
-                            Contribuições são bem-vindas! Você pode ajudar de
-                            várias formas:
-                          </p>
+                          <h3 className="text-lg font-medium text-white mb-2">Como Contribuir</h3>
+                          <p>Contribuições são bem-vindas! Você pode ajudar de várias formas:</p>
                           <ul className="list-disc pl-5 space-y-1 mt-2">
                             <li>Reportando bugs e problemas</li>
                             <li>Sugerindo novas funcionalidades</li>
                             <li>Melhorando a documentação</li>
-                            <li>
-                              Enviando pull requests com correções ou novos
-                              recursos
-                            </li>
+                            <li>Enviando pull requests com correções ou novos recursos</li>
                           </ul>
                         </div>
 
                         <p>
-                          O código-fonte completo está disponível no GitHub.
-                          Sinta-se à vontade para fazer um fork, explorar e
-                          contribuir para o projeto!
+                          O código-fonte completo está disponível no GitHub. Sinta-se à vontade para fazer um fork,
+                          explorar e contribuir para o projeto!
                         </p>
                       </div>
 
@@ -555,13 +429,10 @@ document.body.appendChild(script);
                         transition={{ duration: 0.5 }}
                         className="mb-6 text-center"
                       >
-                        <h2 className="text-2xl font-bold mb-2 text-white">
-                          Apoie este Projeto
-                        </h2>
+                        <h2 className="text-2xl font-bold mb-2 text-white">Apoie este Projeto</h2>
                         <p className="text-gray-300 max-w-md">
-                          O DevCrosshair é uma ferramenta gratuita e de código
-                          aberto. Se você achou útil, considere me pagar um
-                          café! ☕
+                          O DevCrosshair é uma ferramenta gratuita e de código aberto. Se você achou útil, considere me
+                          pagar um café! ☕
                         </p>
                       </motion.div>
 
@@ -610,34 +481,17 @@ document.body.appendChild(script);
                           animate={{ y: 0, opacity: 1 }}
                           transition={{ delay: 0.4, duration: 0.5 }}
                         >
-                          <h3 className="text-xl font-semibold mb-3 text-white">
-                            Por que apoiar?
-                          </h3>
+                          <h3 className="text-xl font-semibold mb-3 text-white">Por que apoiar?</h3>
                           <ul className="space-y-3 text-gray-300">
-                            <motion.li
-                              className="flex items-start gap-2"
-                              whileHover={{ x: 5 }}
-                            >
+                            <motion.li className="flex items-start gap-2" whileHover={{ x: 5 }}>
                               <div className="mt-1 text-green-400">✓</div>
-                              <div>
-                                Ajuda a manter o projeto atualizado e com novas
-                                funcionalidades
-                              </div>
+                              <div>Ajuda a manter o projeto atualizado e com novas funcionalidades</div>
                             </motion.li>
-                            <motion.li
-                              className="flex items-start gap-2"
-                              whileHover={{ x: 5 }}
-                            >
+                            <motion.li className="flex items-start gap-2" whileHover={{ x: 5 }}>
                               <div className="mt-1 text-green-400">✓</div>
-                              <div>
-                                Incentiva a criação de mais ferramentas
-                                gratuitas para desenvolvedores
-                              </div>
+                              <div>Incentiva a criação de mais ferramentas gratuitas para desenvolvedores</div>
                             </motion.li>
-                            <motion.li
-                              className="flex items-start gap-2"
-                              whileHover={{ x: 5 }}
-                            >
+                            <motion.li className="flex items-start gap-2" whileHover={{ x: 5 }}>
                               <div className="mt-1 text-green-400">✓</div>
                               <div>Café = Código melhor! ☕💻</div>
                             </motion.li>
@@ -649,8 +503,7 @@ document.body.appendChild(script);
                             animate={{ opacity: 1 }}
                             transition={{ delay: 1, duration: 1 }}
                           >
-                            "Sua contribuição faz toda a diferença. Obrigado por
-                            apoiar desenvolvedores independentes!"
+                            "Sua contribuição faz toda a diferença. Obrigado por apoiar desenvolvedores independentes!"
                           </motion.p>
                         </motion.div>
                       </div>
@@ -681,7 +534,7 @@ document.body.appendChild(script);
             </motion.a>
 
             <motion.a
-              href="https://github.com/gbrmaia/devcrosshair"
+              href="https://github.com/gbrmaia"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
@@ -734,29 +587,20 @@ document.body.appendChild(script);
               <div className="flex justify-between items-start mb-4">
                 <div className="flex items-center gap-2">
                   <Coffee className="text-amber-500" size={24} />
-                  <h2 className="text-xl font-bold text-white">
-                    Gostou do DevCrosshair?
-                  </h2>
+                  <h2 className="text-xl font-bold text-white">Gostou do DevCrosshair?</h2>
                 </div>
-                <button
-                  onClick={() => setShowSupport(false)}
-                  className="text-gray-400 hover:text-white"
-                >
+                <button onClick={() => setShowSupport(false)} className="text-gray-400 hover:text-white">
                   <X size={20} />
                 </button>
               </div>
 
               <p className="text-gray-300 mb-4">
-                Esta ferramenta foi desenvolvida com ❤️ para ajudar
-                desenvolvedores como você. Se ela economizou seu tempo ou
-                melhorou seu trabalho, considere me pagar um café!
+                Esta ferramenta foi desenvolvida com ❤️ para ajudar desenvolvedores como você. Se ela economizou seu
+                tempo ou melhorou seu trabalho, considere me pagar um café!
               </p>
 
               <div className="flex justify-center mb-4">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-white p-1 rounded-lg"
-                >
+                <motion.div whileHover={{ scale: 1.05 }} className="bg-white p-1 rounded-lg">
                   <Image
                     src="/QR.png"
                     alt="QR Code PIX para apoiar o projeto"
@@ -771,8 +615,8 @@ document.body.appendChild(script);
                 <Button
                   className="w-full bg-amber-600 hover:bg-amber-700 text-white"
                   onClick={() => {
-                    setShowSupport(false);
-                    setActiveTab("support");
+                    setShowSupport(false)
+                    setActiveTab("support")
                   }}
                 >
                   <Coffee size={16} className="mr-2" />
@@ -791,5 +635,6 @@ document.body.appendChild(script);
         )}
       </AnimatePresence>
     </div>
-  );
+  )
 }
+
