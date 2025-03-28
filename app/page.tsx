@@ -770,7 +770,7 @@ document.body.appendChild(script);
                   className="bg-white p-1 rounded-lg"
                 >
                   <Image
-                    src="/QR.png"
+                    src="/qr.png"
                     alt="QR Code PIX para apoiar o projeto"
                     width={128}
                     height={128}
