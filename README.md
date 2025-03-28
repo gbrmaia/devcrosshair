@@ -4,10 +4,7 @@
   <p><strong>Ferramenta de precisão para desenvolvedores web e profissionais de QA</strong></p>
   
   <p>
-    <a href="https://github.com/gbrmaia/devcrosshair/stargazers"><img src="https://img.shields.io/github/stars/gbrmaia/devcrosshair?style=flat-square&color=yellow" alt="Stars"></a>
-    <a href="https://github.com/gbrmaia/devcrosshair/issues"><img src="https://img.shields.io/github/issues/gbrmaia/devcrosshair?style=flat-square&color=red" alt="Issues"></a>
-    <a href="https://github.com/gbrmaia/devcrosshair/blob/main/LICENSE"><img src="https://img.shields.io/github/license/gbrmaia/devcrosshair?style=flat-square&color=blue" alt="License"></a>
-    <a href="https://devcrosshair.vercel.app"><img src="https://img.shields.io/badge/demo-online-brightgreen?style=flat-square" alt="Demo"></a>
+    <a href="https://github.com/gbrmaia/devcrosshair/stargazers"><img src="https://img.shields.io/github/stars/gbrmaia/devcrosshair?style=flat-square&color=yellow" alt="Estrelas"></a>
   </p>
   
   <br>
